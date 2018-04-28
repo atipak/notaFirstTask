@@ -1,0 +1,77 @@
+{
+	"additionalNodes": [],
+	"additionalParameters": {
+		"root": {
+			"height": 88,
+			"width": 180
+		}
+	},
+	"inputs": [],
+	"outputs": [],
+	"properties": {
+		"FPn7AbLhoko4iI1wT1M7DKcSalaxn8eY": {
+			"height": 90,
+			"title": "Common.relativeMove",
+			"width": 320,
+			"x": 578,
+			"y": 67
+		},
+		"YWNo8RPImeux4LgXHmgWmoOgpYyV9YJN": {
+			"height": 94,
+			"title": "store",
+			"width": 225,
+			"x": 570,
+			"y": -67
+		},
+		"tQfP9pmv7FvWgCs3HHQODzfYCt3LmJjn": {
+			"height": 60,
+			"title": "sequence",
+			"width": 143,
+			"x": 281,
+			"y": 8
+		}
+	},
+	"roles": [ {
+		"categories": [ "nota_pat_task_one.BattleCommender" ],
+		"name": "Commander"
+	}, {
+		"categories": [],
+		"name": "Others"
+	} ],
+	"root": {
+		"children": [ {
+			"children": [],
+			"id": "YWNo8RPImeux4LgXHmgWmoOgpYyV9YJN",
+			"nodeType": "luaCommand",
+			"parameters": [ {
+				"name": "var",
+				"value": "wind"
+			}, {
+				"name": "value",
+				"value": "map.Wind()"
+			}, {
+				"name": "scriptName",
+				"value": "store"
+			} ],
+			"scriptName": "store"
+		}, {
+			"children": [],
+			"id": "FPn7AbLhoko4iI1wT1M7DKcSalaxn8eY",
+			"nodeType": "luaCommand",
+			"parameters": [ {
+				"name": "dist",
+				"value": "{x = wind.dirX  * 10, z = wind.dirZ * 10}"
+			}, {
+				"name": "fight",
+				"value": "false"
+			}, {
+				"name": "scriptName",
+				"value": "Common.relativeMove"
+			} ],
+			"scriptName": "Common.relativeMove"
+		} ],
+		"id": "tQfP9pmv7FvWgCs3HHQODzfYCt3LmJjn",
+		"nodeType": "sequence",
+		"parameters": []
+	}
+}

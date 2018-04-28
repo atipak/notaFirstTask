@@ -1,0 +1,77 @@
+{
+	"additionalNodes": [],
+	"additionalParameters": {
+		"root": {
+			"height": 88,
+			"width": 180
+		}
+	},
+	"inputs": [],
+	"outputs": [],
+	"properties": {
+		"QmwPcOIpxHquGbfEa7hXmgipKkdKX6ck": {
+			"height": 94,
+			"title": "store",
+			"width": 349,
+			"x": 454,
+			"y": -39
+		},
+		"cpMbdqgTt7mpnnrddRBVU50ZXkFHDOHs": {
+			"height": 92,
+			"title": "nota_pat_task_one.circularMove",
+			"width": 377,
+			"x": 449,
+			"y": 83
+		},
+		"zBtvceVx4rOuMmlDfQJu2V5yKrEgQZ7S": {
+			"height": 70,
+			"title": "parallel",
+			"width": 202,
+			"x": 194,
+			"y": 3
+		}
+	},
+	"roles": [ {
+		"categories": [ "Created.otherUnits" ],
+		"name": "OtherUnits"
+	} ],
+	"root": {
+		"children": [ {
+			"children": [],
+			"id": "QmwPcOIpxHquGbfEa7hXmgipKkdKX6ck",
+			"nodeType": "luaCommand",
+			"parameters": [ {
+				"name": "var",
+				"value": "position"
+			}, {
+				"name": "value",
+				"value": "nota_pat_task_one.CommanderPosition()"
+			}, {
+				"name": "scriptName",
+				"value": "store"
+			} ],
+			"scriptName": "store"
+		}, {
+			"children": [],
+			"id": "cpMbdqgTt7mpnnrddRBVU50ZXkFHDOHs",
+			"nodeType": "luaCommand",
+			"parameters": [ {
+				"name": "position",
+				"value": "{x = position.x, y = position.y, z = position.z}"
+			}, {
+				"name": "radius",
+				"value": 50
+			}, {
+				"name": "scriptName",
+				"value": "nota_pat_task_one.circularMove"
+			} ],
+			"scriptName": "nota_pat_task_one.circularMove"
+		} ],
+		"id": "zBtvceVx4rOuMmlDfQJu2V5yKrEgQZ7S",
+		"nodeType": "parallel",
+		"parameters": [ {
+			"name": "mode",
+			"value": "all-success"
+		} ]
+	}
+}
