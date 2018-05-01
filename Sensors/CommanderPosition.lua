@@ -1,7 +1,7 @@
 local sensorInfo = {
 	name = "CommanderPosition",
 	desc = "Return data of actual position of commander.",
-	author = "Palvatik",
+	author = "Patik",
 	date = "2018-04-26",
 	license = "notAlicense",
 }
@@ -20,26 +20,20 @@ local commanderId = nil
 -- @description return current wind statistics
 return function()
   if (not commanderId == nil) and Spring.ValidUnitID(commanderId) and (not Spring.GetUnitIsDead(commanderId)) then 
-    local lx, ly, lz = Spring.GetUnitPosition(commanderId)
-    return {
-      posX = lx,
-      posY = ly,
-      posZ = lz
-    }
+    local pointX, pointY, pointZ = Spring.GetUnitPosition(commanderId)
+    return Vec3(pointX, pointY, pointZ)
   else 
-    local allUnits = Spring.GetAllUnits()
-    for i = 1, table.getn(allUnits) do
-      local unitId = allUnits[i]
+    -- local allUnits = Spring.GetAllUnits()
+    -- local end = table.getn(allUnits) 
+    for i = 1, #units  do
+      local unitId = units[i]
       local unitDefID = Spring.GetUnitDefID(unitId)
       if UnitDefs[unitDefID].name == "armbcom" then 
         commanderId = unitId
-        local lx, ly, lz = Spring.GetUnitPosition(commanderId)
-        return {
-          x = lx,
-          y = ly,
-          z = lz
-        }
+        local pointX, pointY, pointZ = Spring.GetUnitPosition(commanderId)
+        return Vec3(pointX, pointY, pointZ)
       end          
     end 
+    return nil
   end 
 end

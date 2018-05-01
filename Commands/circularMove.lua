@@ -6,13 +6,7 @@ function getInfo()
 				name = "position",
 				variableType = "expression",
 				componentType = "editBox",
-				defaultValue = "{x = 0, y = 0, z = 0}"
-			},
-			{ 
-				name = "radius",
-				variableType = "number",
-				componentType = "editBox",
-				defaultValue = "20"
+				defaultValue = "Sensors.nota_pat_task_one.CommanderPosition()"
 			}
 		}
 	}
@@ -20,27 +14,45 @@ end
 
 local threshold = 5
 local timer = 0
-local timeout = 3
+local timeout = 10
 
 function Run(self, unitIds, parameter)
 	units = unitIds
 	unitsSize = #unitIds
+  if parameter.position == nil then 
+    return SUCCESS
+  end
+  
+  
+  -- initialization, help variables (constants)
   local fullAngle = 2 * math.pi 
-  local angle = fullAngle / unitsSize
-  local isRunning = false 
-  for i = 1, unitsSize do
-    local unitID = units[i]
-    local lx, ly, lz = Spring.GetUnitPosition(unitID)
-    local relx = parameter.radius * math.cos((i * angle) % fullAngle)
-    local relz = parameter.radius * math.sin((i * angle) % fullAngle)  
-    local newX = parameter.position.x + relx
-    local newY = ly
-    local newZ = parameter.position.z + relz
-    if math.abs(lx - newX) > threshold or math.abs(ly - newY) > threshold or math.abs(lz - newZ) > threshold then 
-      isRunning = true
-      Spring.GiveOrderToUnit(unitID, CMD.MOVE, {newX, newY, newZ}, {})  
-    end       
-  end 
+  local angle = fullAngle / unitsSize  -- angle between units in cycle
+  local isRunning = false -- is command running 
+  local k = 0 -- variable for frontlines
+  local cycleCount = 12 -- count of units for cycle (1.line = 12 units, 2. line = 24 units)
+  local radiusRange = 100 -- radius of cycle (1.line = 100 units, 2. line = 200 units) 
+  local actualRadius = (k + 1) * radiusRange
+  local start = 1 -- helpers for "for loops"
+  local theEnd = 0
+  
+  -- frontlines
+  -- do that until you can create full frontline
+  while unitsSize > (theEnd + (k + 1) * cycleCount) do 
+    angle = fullAngle / ((k + 1) * cycleCount)
+    actualRadius = (k + 1) * radiusRange  
+    start = start + (k * cycleCount)
+    theEnd = theEnd + (k + 1) * cycleCount
+    isRunning = SendSoldiers(angle, actualRadius, start, theEnd, fullAngle, parameter.position, units)
+    k = k + 1 
+    actualRadius = (k + 1) * radiusRange
+  end
+  
+  -- the rest of units 
+  theEnd = unitsSize
+  angle = fullAngle / (unitsSize - start + 1)  
+  isRunning = SendSoldiers(angle, actualRadius, start, theEnd, fullAngle, parameter.position, units)
+  
+  -- timeout (units go until they reach the endpoint, but commander is moving, so node has to be reset. sometimes units stuck)
   if isRunning then 
     if timer == 0 then 
       timer = os.clock()
@@ -58,3 +70,22 @@ function Run(self, unitIds, parameter)
     return SUCCESS
   end 
 end
+
+-- function for sending commands
+function SendSoldiers(angle, actualRadius, start, theEnd, fullAngle, position, units)
+  local isRunning = false
+  for i = start, theEnd do
+    local unitID = units[i]
+    local lx, ly, lz = Spring.GetUnitPosition(unitID)
+    local relx = actualRadius * math.cos((i * angle) % fullAngle)
+    local relz = actualRadius * math.sin((i * angle) % fullAngle)  
+    local addVector = Vec3(relx, 0, relz)
+    local newVector = position + addVector
+    if math.abs(lx - newVector.x) > threshold or math.abs(ly - newVector.y) > threshold or math.abs(lz - newVector.z) > threshold then 
+      isRunning = true
+      Spring.GiveOrderToUnit(unitID, CMD.MOVE, newVector:AsSpringVector(), {})  
+    end      
+  end 
+  return isRunning
+end
+  

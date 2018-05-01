@@ -1,5 +1,17 @@
 {
-	"additionalNodes": [],
+	"additionalNodes": [ {
+		"children": [],
+		"id": "eurvMpTIVl4VT5J0eYdtkHwjt0395jga",
+		"nodeType": "luaCommand",
+		"parameters": [ {
+			"name": "msg",
+			"value": "position"
+		}, {
+			"name": "scriptName",
+			"value": "echo"
+		} ],
+		"scriptName": "echo"
+	} ],
 	"additionalParameters": {
 		"root": {
 			"height": 88,
@@ -9,26 +21,61 @@
 	"inputs": [],
 	"outputs": [],
 	"properties": {
+		"3cMdrLy7t5miogV1rYYCFgMooj7lTB3D": {
+			"height": 74,
+			"title": "nota_pat_task_one.circularMove",
+			"width": 423,
+			"x": 716,
+			"y": 289
+		},
+		"9H2GJ5kF8IijkJI7vNcI8aWrJcmPXn1J": {
+			"height": 54,
+			"title": "sequence",
+			"width": 143,
+			"x": 476,
+			"y": 178
+		},
 		"FPn7AbLhoko4iI1wT1M7DKcSalaxn8eY": {
 			"height": 90,
 			"title": "Common.relativeMove",
 			"width": 320,
-			"x": 578,
-			"y": 67
+			"x": 704,
+			"y": 27
+		},
+		"OOguQXRSJHSxbX8NGMxtqJmk4R2Ef1St": {
+			"height": 70,
+			"title": "roleSplit",
+			"width": 202,
+			"x": 203,
+			"y": 4
+		},
+		"XsPmveGJ379ZhKFjBsZyqAXcX94ER3sm": {
+			"height": 94,
+			"title": "store",
+			"width": 405,
+			"x": 708,
+			"y": 123
 		},
 		"YWNo8RPImeux4LgXHmgWmoOgpYyV9YJN": {
 			"height": 94,
 			"title": "store",
 			"width": 225,
-			"x": 570,
-			"y": -67
+			"x": 705,
+			"y": -74
+		},
+		"eurvMpTIVl4VT5J0eYdtkHwjt0395jga": {
+			"height": 72,
+			"title": "echo",
+			"width": 131,
+			"x": 714,
+			"y": 210
 		},
 		"tQfP9pmv7FvWgCs3HHQODzfYCt3LmJjn": {
 			"height": 60,
 			"title": "sequence",
 			"width": 143,
-			"x": 281,
-			"y": 8
+			"x": 463,
+			"y": 2
 		}
 	},
 	"roles": [ {
@@ -40,38 +87,78 @@
 	} ],
 	"root": {
 		"children": [ {
-			"children": [],
-			"id": "YWNo8RPImeux4LgXHmgWmoOgpYyV9YJN",
-			"nodeType": "luaCommand",
-			"parameters": [ {
-				"name": "var",
-				"value": "wind"
+			"children": [ {
+				"children": [],
+				"id": "YWNo8RPImeux4LgXHmgWmoOgpYyV9YJN",
+				"nodeType": "luaCommand",
+				"parameters": [ {
+					"name": "var",
+					"value": "wind"
+				}, {
+					"name": "value",
+					"value": "map.Wind()"
+				}, {
+					"name": "scriptName",
+					"value": "store"
+				} ],
+				"scriptName": "store"
 			}, {
-				"name": "value",
-				"value": "map.Wind()"
+				"children": [],
+				"id": "FPn7AbLhoko4iI1wT1M7DKcSalaxn8eY",
+				"nodeType": "luaCommand",
+				"parameters": [ {
+					"name": "dist",
+					"value": "{x = wind.dirX  * 10, z = wind.dirZ * 10}"
+				}, {
+					"name": "fight",
+					"value": "false"
+				}, {
+					"name": "scriptName",
+					"value": "Common.relativeMove"
+				} ],
+				"scriptName": "Common.relativeMove"
 			}, {
-				"name": "scriptName",
-				"value": "store"
+				"children": [],
+				"id": "XsPmveGJ379ZhKFjBsZyqAXcX94ER3sm",
+				"nodeType": "luaCommand",
+				"parameters": [ {
+					"name": "var",
+					"value": "position"
+				}, {
+					"name": "value",
+					"value": "Sensors.nota_pat_task_one.CommanderPosition()"
+				}, {
+					"name": "scriptName",
+					"value": "store"
+				} ],
+				"scriptName": "store"
 			} ],
-			"scriptName": "store"
+			"id": "tQfP9pmv7FvWgCs3HHQODzfYCt3LmJjn",
+			"nodeType": "sequence",
+			"parameters": []
 		}, {
-			"children": [],
-			"id": "FPn7AbLhoko4iI1wT1M7DKcSalaxn8eY",
-			"nodeType": "luaCommand",
-			"parameters": [ {
-				"name": "dist",
-				"value": "{x = wind.dirX  * 10, z = wind.dirZ * 10}"
-			}, {
-				"name": "fight",
-				"value": "false"
-			}, {
-				"name": "scriptName",
-				"value": "Common.relativeMove"
+			"children": [ {
+				"children": [],
+				"id": "3cMdrLy7t5miogV1rYYCFgMooj7lTB3D",
+				"nodeType": "luaCommand",
+				"parameters": [ {
+					"name": "position",
+					"value": "position"
+				}, {
+					"name": "scriptName",
+					"value": "nota_pat_task_one.circularMove"
+				} ],
+				"scriptName": "nota_pat_task_one.circularMove"
 			} ],
-			"scriptName": "Common.relativeMove"
+			"id": "9H2GJ5kF8IijkJI7vNcI8aWrJcmPXn1J",
+			"nodeType": "sequence",
+			"parameters": []
 		} ],
-		"id": "tQfP9pmv7FvWgCs3HHQODzfYCt3LmJjn",
-		"nodeType": "sequence",
-		"parameters": []
+		"id": "OOguQXRSJHSxbX8NGMxtqJmk4R2Ef1St",
+		"nodeType": "roleSplit",
+		"parameters": [ {
+			"name": "mode",
+			"value": "all-success"
+		} ]
 	}
 }
