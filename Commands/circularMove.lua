@@ -14,7 +14,7 @@ end
 
 local threshold = 5
 local timer = 0
-local timeout = 10
+local timeout = 50
 
 function Run(self, unitIds, parameter)
 	units = unitIds
@@ -60,7 +60,7 @@ function Run(self, unitIds, parameter)
     else
       if os.clock() - timer >= timeout then
         timer = 0
-        return FAILURE
+        return SUCCESS
       else
         return RUNNING
       end
@@ -83,6 +83,7 @@ function SendSoldiers(angle, actualRadius, start, theEnd, fullAngle, position, u
     local newVector = position + addVector
     if math.abs(lx - newVector.x) > threshold or math.abs(ly - newVector.y) > threshold or math.abs(lz - newVector.z) > threshold then 
       isRunning = true
+      Spring.GiveOrderToUnit(unitID, CMD.STOP, {}, {})  
       Spring.GiveOrderToUnit(unitID, CMD.MOVE, newVector:AsSpringVector(), {})  
     end      
   end 
